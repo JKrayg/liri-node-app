@@ -19,14 +19,14 @@ var axios = require("axios");
 var omdbApi = "";
 
 if (process.argv[2] === "movie-this") {
-    var nodeArgs = process.argv;
+    var args = process.argv;
     var title = "";
-    for (var i = 3; i < nodeArgs.length; i++) {
+    for (var i = 3; i < args.length; i++) {
 
-        if (i > 3 && i < nodeArgs.length) {
-            title = title + "+" + nodeArgs[i];
+        if (i > 3 && i < args.length) {
+            title = title + "+" + args[i];
         } else {
-            title += nodeArgs[i];
+            title += args[i];
 
         }
     }
@@ -47,11 +47,8 @@ if (process.argv[2] === "movie-this") {
         })
         .catch(function (error) {
             if (error.response) {
-                console.log("---------------Data---------------");
                 console.log(error.response.data);
-                console.log("---------------Status---------------");
                 console.log(error.response.status);
-                console.log("---------------Status---------------");
                 console.log(error.response.headers);
             } else if (error.request) {
                 console.log(error.request);
@@ -61,16 +58,20 @@ if (process.argv[2] === "movie-this") {
             console.log(error.config);
         });
 } else if (process.argv[2] === "concert-this") {
-    var nodeArgs = process.argv;
+    var args = process.argv;
     var artist = "";
-    for (var i = 3; i < nodeArgs.length; i++) {
+    for (var i = 3; i < args.length; i++) {
 
-        if (i > 3 && i < nodeArgs.length) {
-            artist = artist + "+" + nodeArgs[i];
+        if (i > 3 && i < args.length) {
+            artist = artist + "+" + args[i];
         } else {
-            artist += nodeArgs[i];
+            artist += args[i];
         }
     }
+    //
+    //
+    //
+    //ADD API
     var bandsAPI = "";
     var bandsURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bandsAPI;
     axios
@@ -81,11 +82,8 @@ if (process.argv[2] === "movie-this") {
         })
         .catch(function (error) {
             if (error.response) {
-                console.log("---------------Data---------------");
                 console.log(error.response.data);
-                console.log("---------------Status---------------");
                 console.log(error.response.status);
-                console.log("---------------Status---------------");
                 console.log(error.response.headers);
             } else if (error.request) {
                 console.log(error.request);
