@@ -8,31 +8,28 @@ moment().format();
 
 //access keys
 if (process.argv[2] === "spotify-this") {
-   var spotify = new Spotify({
-    id: keys.spotify.id,
-    secret: keys.spotify.secret
-  });
-   
-  spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-    if (err) {
-      return console.log('Error occurred: ' + err);
-    }
-   
-  console.log(data); 
-  }); 
+    var spotify = new Spotify({
+        id: keys.spotify.id,
+        secret: keys.spotify.secret
+    });
+
+    spotify.search({
+        type: 'track',
+        query: process.argv[3]
+    }, function (err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+
+        console.log(data);
+    });
 }
-//var omdbUrl = "http://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=" + omdbApi;
-//var bandsURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-
-
 //
 //
 //
 //ADD API
-
-
 else if (process.argv[2] === "movie-this") {
-    var omdbApi = "";
+    var omdbApi = "4e0294cb";
     var args = process.argv;
     var title = "";
     for (var i = 3; i < args.length; i++) {
@@ -86,7 +83,7 @@ else if (process.argv[2] === "movie-this") {
     //
     //
     //ADD API
-    var bandsAPI = "";
+    var bandsAPI = "codingbootcamp";
     var bandsURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bandsAPI;
     axios
         .get(bandsURL)
