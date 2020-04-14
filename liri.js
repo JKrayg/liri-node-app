@@ -1,24 +1,38 @@
 require("dotenv").config();
 var keys = require("./keys.js");
+var Spotify = require('node-spotify-api');
+var axios = require("axios");
+var fs = require('fs');
+var moment = require('moment');
+moment().format();
 
 //access keys
-//var spotify = new Spotify(keys.spotify);
-//console.log(spotify);
-/*var OMDB = OMDB(keys.omdb)
-
-console.log(OMDB);*/
-//var spotifyID = "b0248b63bfd7447284e97fdd39f88b88";
+if (process.argv[2] === "spotify-this") {
+   var spotify = new Spotify({
+    id: keys.spotify.id,
+    secret: keys.spotify.secret
+  });
+   
+  spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+   
+  console.log(data); 
+  }); 
+}
 //var omdbUrl = "http://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=" + omdbApi;
 //var bandsURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
-var axios = require("axios");
+
 //
 //
 //
 //ADD API
-var omdbApi = "";
 
-if (process.argv[2] === "movie-this") {
+
+else if (process.argv[2] === "movie-this") {
+    var omdbApi = "";
     var args = process.argv;
     var title = "";
     for (var i = 3; i < args.length; i++) {
