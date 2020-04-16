@@ -4,31 +4,35 @@ var Spotify = require('node-spotify-api');
 var axios = require("axios");
 var fs = require('fs');
 var moment = require('moment');
+var util = require('util')
 moment().format();
 
-//access keys
+
 if (process.argv[2] === "spotify-this") {
     var spotify = new Spotify({
         id: keys.spotify.id,
         secret: keys.spotify.secret
     });
-
     spotify.search({
         type: 'track',
-        query: process.argv[3]
-    }, function (err, data) {
+        query: process.argv[3],
+        limit: 1
+
+    }).then(function (response) {
+        //console.log(response);
+        //console.log(JSON.stringify(response.tracks.items, false, null, true));
+        console.log(util.inspect(response, {depth: null}));
+        //console.log(JSON.stringify(response));
+
+    }).catch(function (err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
 
-        console.log(data);
+        //console.log(data);
     });
-}
-//
-//
-//
-//ADD API
-else if (process.argv[2] === "movie-this") {
+
+} else if (process.argv[2] === "movie-this") {
     var omdbApi = "4e0294cb";
     var args = process.argv;
     var title = "";
@@ -47,6 +51,7 @@ else if (process.argv[2] === "movie-this") {
         .get(omdbUrl)
         .then(function (response) {
             var data = response.data;
+            //console.log(data)
             console.log("Title: " + data.Title);
             console.log("Release Year: " + data.Year);
             console.log("IMDB Rating: " + data.imdbRating);
@@ -79,17 +84,20 @@ else if (process.argv[2] === "movie-this") {
             artist += args[i];
         }
     }
-    //
-    //
-    //
-    //ADD API
+
+
     var bandsAPI = "codingbootcamp";
     var bandsURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=" + bandsAPI;
     axios
         .get(bandsURL)
         .then(function (response) {
             var data = response.data;
-            console.log(data);
+            //console.log(data)
+            for (var i = 0; i < data.length; i++) {
+                console.log(data[i].venue.name + ' in ' + data[i].venue.location + ' - ' + data[i].datetime);
+
+            }
+
         })
         .catch(function (error) {
             if (error.response) {
@@ -103,4 +111,14 @@ else if (process.argv[2] === "movie-this") {
             }
             console.log(error.config);
         });
+} else if (process.argv[2] === "do-what-it-says") {
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        if (error) {
+            return console.log(error);
+        }
+        console.log(data);
+        var dataArr = data.split(",");
+        console.log(dataArr);
+
+    });
 }
