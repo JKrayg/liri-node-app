@@ -118,10 +118,10 @@ if (process.argv[2] === "spotify-this-song") {
             console.log("Upcoming concert dates: ")
             for (var i = 0; i < data.length; i++) {
                 console.log(data[i].venue.name + ' in ' + data[i].venue.location + ' - ' + data[i].datetime);
-                console.log("                                 ");
+                
 
             }
-
+            console.log("                                 ");
         })
         .catch(function (error) {
             if (error.response) {
@@ -143,8 +143,8 @@ if (process.argv[2] === "spotify-this-song") {
         var dataArr = data.split(",");
         var spotifyThis = dataArr[0];
         var songName = dataArr[1];
-        console.log(spotifyThis);
-        console.log(songName)
+        //console.log(spotifyThis);
+        //console.log(songName)
         if (spotifyThis === "spotify-this-song") {
             var spotify = new Spotify({
                 id: keys.spotify.id,
