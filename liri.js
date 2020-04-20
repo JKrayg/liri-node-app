@@ -140,7 +140,7 @@ if (process.argv[2] === "spotify-this-song") {
         var dataArr = data.split(",");
         var spotifyThis = dataArr[0];
         var songName = dataArr[1];
-        console.log(commandThis);
+        console.log(spotifyThis);
         console.log(songName)
         if (spotifyThis === "spotify-this-song") {
             var spotify = new Spotify({
