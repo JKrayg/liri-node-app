@@ -34,7 +34,9 @@ if (process.argv[2] === "spotify-this-song") {
             if (data.preview_url === null) {
                 console.log(util.inspect("Track: " + data.external_urls.spotify, {depth: null}));
             }
-            console.log(util.inspect("Album: " + data.album.name, {depth: null}));
+            console.log(util.inspect("Album: " + data.album.name, {
+                depth: null
+            }));
             console.log("                                        ");
             console.log("========================================");
             console.log("                                        ");
@@ -116,6 +118,7 @@ if (process.argv[2] === "spotify-this-song") {
             console.log("Upcoming concert dates: ")
             for (var i = 0; i < data.length; i++) {
                 console.log(data[i].venue.name + ' in ' + data[i].venue.location + ' - ' + data[i].datetime);
+                console.log("                                 ");
 
             }
 
@@ -148,14 +151,14 @@ if (process.argv[2] === "spotify-this-song") {
                 secret: keys.spotify.secret
             });
             spotify.search({
-                 type: "track",
-                 query: songName,
-                 limit: 20
-             }, function (err, data) {
-                 if (err) {
-                     return console.log("Error occured: " + err);
-                 }
-                 for (var i = 0; i < data.tracks.items.length; i++) {
+                type: "track",
+                query: songName,
+                limit: 20
+            }, function (err, data) {
+                if (err) {
+                    return console.log("Error: " + err);
+                }
+                for (var i = 0; i < data.tracks.items.length; i++) {
                     var response = data.tracks.items[i];
                     console.log("                                        ");
                     console.log(util.inspect("Artist: " + response.album.artists[0].name, {depth: null}));
@@ -170,6 +173,6 @@ if (process.argv[2] === "spotify-this-song") {
                     console.log("                                        ");
                 }
             });
-    };
-});
+        };
+    });
 };
