@@ -79,7 +79,7 @@ if (process.argv[2] === "spotify-this-song") {
             console.log("Plot: " + data.Plot);
             console.log("Actors: " + data.Actors);
             if (data.Title === undefined) {
-                console.log("You are an idiot");
+                console.log("Jake, you are an idiot");
             }
         })
         .catch(function (error) {
